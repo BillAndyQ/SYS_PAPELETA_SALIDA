@@ -1,8 +1,8 @@
 <?php
 
-$router->path("", "sign.login", "login"); // ruta & app.controlador & name
-$router->path("/login", "sign.login");
-$router->path("/register", "register.register");
-$router->path("/boletasalida", "boleta_salida.boletaSalida");
-
+path("", "sign.login", "login"); // ruta & app.controlador & name
+path("/login", "sign.login");
+path("/forget-password", "sign.forgetPass","forget_pass");
+path("/register", "register.register","register");
+path("/boleta-salida", "boleta_salida.boletaSalida","boleta_salida");
 

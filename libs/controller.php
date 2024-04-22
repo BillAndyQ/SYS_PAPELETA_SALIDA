@@ -28,11 +28,11 @@ abstract class Controller {
                 popUpCorrect("inició sesion!");
             }
             else{
-                header("Location: https://".$_SERVER['HTTP_HOST']."/SYS_PAPELETA_SALIDA/login");
+                redirect("login");
                 exit();
             }
         }else{
-            header("Location: https://".$_SERVER['HTTP_HOST']."/SYS_PAPELETA_SALIDA/login");
+            redirect("login");
                 exit();
         }
     }

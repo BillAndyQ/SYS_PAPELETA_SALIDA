@@ -13,3 +13,13 @@ class login extends Controller{
         require_once "./apps/sign/views/login.php";
     }
 }
+class forgetPass extends Controller{
+    function verifLogin(){}
+    function get(){
+        popUpCorrect("Solicitud GET");
+        require_once "./apps/sign/views/forget_pass.php";
+    }
+    function post(){
+        require_once "./apps/sign/views/forget_pass.php";
+    }
+}

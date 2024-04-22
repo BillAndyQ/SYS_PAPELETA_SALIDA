@@ -1,15 +1,34 @@
 <?php
-
-class Router{
-    private $rutas = [];
-    public function path($ruta, $controller, $alias = null){
+$rutas = [];
+    
+    function path($ruta, $controller, $alias = null){
         $dirProject = "/SYS_PAPELETA_SALIDA";
-        $this->rutas[] = [ $dirProject .$ruta, $controller, $alias];
+        global $rutas;
+        $rutas[] = [ $dirProject .$ruta, $controller, $alias];
     }
-
-    public function load(){
+    function redirect($nameRuta){
+        global $rutas;
+        foreach ($rutas as $ruta) {
+            if($ruta[2]==$nameRuta){
+                header("Location: https://".$_SERVER['HTTP_HOST']. $ruta[0]);
+                exit();
+            }
+        }
+    }
+    function getRuta($nameRuta){
+        global $rutas;
+        foreach ($rutas as $ruta) {
+            if($ruta[2]==$nameRuta){
+                $url = "https://".$_SERVER['HTTP_HOST']. $ruta[0];
+                echo $url;
+            }
+        }
+    }
+    function load(){
+        
         $verifLoadPage = false;
-        foreach ($this->rutas as $ruta) {
+        global $rutas;
+        foreach ($rutas as $ruta) {
             $path = $ruta[0];
             $controller = $ruta[1];
             $urlActual= rtrim($_SERVER['REQUEST_URI'], "/");
@@ -34,12 +53,6 @@ class Router{
             exit();
         }
     }
-    public function includePath($ruta){
-        
-    }
-}
-$router = new Router();
 
-function redirect(){
-    echo "redirect";
-}
+
+

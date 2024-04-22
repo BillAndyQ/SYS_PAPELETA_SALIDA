@@ -49,6 +49,7 @@ class newUser{
                 $consulta->execute();
                 $connectdb->commit();
                 popUpCorrect("Usuario creado exitosamente!");
+                redirect("login");
             }
             
 
