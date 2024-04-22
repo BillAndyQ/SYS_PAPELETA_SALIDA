@@ -10,7 +10,7 @@ $rutas = [];
         global $rutas;
         foreach ($rutas as $ruta) {
             if($ruta[2]==$nameRuta){
-                header("Location: https://".$_SERVER['HTTP_HOST']. $ruta[0]);
+                header("Location: http://".$_SERVER['HTTP_HOST']. $ruta[0]);
                 exit();
             }
         }
@@ -19,7 +19,7 @@ $rutas = [];
         global $rutas;
         foreach ($rutas as $ruta) {
             if($ruta[2]==$nameRuta){
-                $url = "https://".$_SERVER['HTTP_HOST']. $ruta[0];
+                $url = "http://".$_SERVER['HTTP_HOST']. $ruta[0];
                 echo $url;
             }
         }
