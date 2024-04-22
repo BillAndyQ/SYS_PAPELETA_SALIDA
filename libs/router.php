@@ -35,7 +35,7 @@ class Router{
         }
     }
     public function includePath($ruta){
-
+        
     }
 }
 $router = new Router();
