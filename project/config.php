@@ -1,4 +1,6 @@
 <?php
+namespace config;
+use PDO, PDOException;
 
 class Connect{
     private $db = "sys_papeleta_salida";

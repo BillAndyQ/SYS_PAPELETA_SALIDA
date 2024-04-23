@@ -1,4 +1,5 @@
 <?php
+use config\Connect;
 
 class newUser{
     public function generationUser(){

@@ -1,5 +1,5 @@
 <?php
-
+use config\Connect;
 class User{
     private $user;
     private $type_user;
