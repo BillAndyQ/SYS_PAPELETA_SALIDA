@@ -2,7 +2,7 @@
 $rutas = [];
     
     function path($ruta, $controller, $alias = null){
-        $dirProject = "/SYS_PAPELETA_SALIDA";
+        $dirProject = "";
         global $rutas;
         $rutas[] = [ $dirProject .$ruta, $controller, $alias];
     }
@@ -15,6 +15,7 @@ $rutas = [];
             }
         }
     }
+    
     function getRuta($nameRuta){
         global $rutas;
         foreach ($rutas as $ruta) {
@@ -24,14 +25,17 @@ $rutas = [];
             }
         }
     }
+    
     function load(){
-        
         $verifLoadPage = false;
         global $rutas;
+        $url = $_SERVER['REQUEST_URI'];
+        $url_components = parse_url($url);
+
         foreach ($rutas as $ruta) {
             $path = $ruta[0];
             $controller = $ruta[1];
-            $urlActual= rtrim($_SERVER['REQUEST_URI'], "/");
+            $urlActual= rtrim($url_components['path'], "/");
 
             if($path == $urlActual){
                 //Obtener app.controller

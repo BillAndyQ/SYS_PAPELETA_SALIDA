@@ -1,6 +1,7 @@
 <?php
 use config\Connect;
 class User{
+    private $login;
     private $user;
     private $type_user;
     private $nombres;
@@ -37,6 +38,31 @@ class User{
         } else {
             popUpError("Datos incorrectos!");
         }
+    }
+    public function generateToken($email){
+        $randomBytes = random_bytes(40);
+        $token = rtrim(strtr(base64_encode($randomBytes), '+/', '-_'), '=');
+        
+        echo $email;
+        $connect = new Connect();
+        $connectdb = $connect->connectBD();
+
+        $consulta = $connectdb->prepare("UPDATE users SET token = :token WHERE email = bill@gmail.com ");
+        
+        $consulta->bindParam(':token', $token, PDO::PARAM_LOB);
+        // $consulta->bindParam(':email', $email);
+
+        $numFilasAfectadas = $consulta->rowCount();
+
+        if ($numFilasAfectadas > 0) {
+            echo "La actualización se realizó correctamente. Filas afectadas: " . $numFilasAfectadas;
+        } else {
+            echo "No se realizó ninguna actualización. No se encontraron filas para actualizar.";
+        }
+
+        $connectdb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return "Token seguro: " . $token;
     }
 
 }

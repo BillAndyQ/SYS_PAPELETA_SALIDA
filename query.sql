@@ -12,7 +12,8 @@ create table users(
     dni varchar(8) UNIQUE KEY NOT NULL,
     email varchar(150) UNIQUE KEY NOT NULL,
     area varchar(100) NOT NULL,
-    oficina varchar(200) NOT NULL
+    oficina varchar(200) NOT NULL,
+    token varbinary(60) UNIQUE KEY
 );
 
 INSERT INTO users(username, pass_hash, pass_salt, nombres, apellidos, dni, email, area, oficina)
