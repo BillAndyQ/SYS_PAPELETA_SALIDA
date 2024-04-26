@@ -52,7 +52,10 @@ class forgetPass extends Controller{
             $mail->Subject = 'RECUPERACION DE CONTRASEÑA UGEL';
             $mail->isHTML(true);
             $ruta = getRuta("new_pass"). "/?token=" . $token;
-            $msj = 'Recuperación de contraseña<br><a href="'. $ruta .'">Click para Crear nueva contraseña</a>';
+            $msj = '<h2>Crea tu nueva contraseña</h2>
+            <p>Hola!<p>
+            <p>Por seguridad no compartas este link con nadie.<p>
+             <br><a href="'. $ruta .'">Click para crear nueva contraseña</a>';
             $mail->Body = $msj;
 
             $mail->send();
