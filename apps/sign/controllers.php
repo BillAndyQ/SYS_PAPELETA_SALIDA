@@ -82,8 +82,9 @@ class newPass extends Controller{
             $token = $_GET['token'];
             $user = new User();
             $user->newPass($token);
+            redirect("login");
         }else{
-            // redirect("login");
+            redirect("login");
         }
     }
 }

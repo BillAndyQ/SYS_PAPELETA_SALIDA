@@ -17,5 +17,5 @@ create table users(
 );
 
 INSERT INTO users(username, pass_hash, pass_salt, nombres, apellidos, dni, email, area, oficina)
-values("billandy", "$2b$12$Bq4ilJf1/9v3S32UpUfDLurSZt4.wZsClfGYjx/qNCp1rZjn8ew3S", "$2b$12$Bq4ilJf1/9v3S32UpUfDLu", "Bill Andy", "Martinez obregon", "76528706", "bill@gmail.com", "AGA", "Informatica");
+values("billandy", "$2b$12$Bq4ilJf1/9v3S32UpUfDLurSZt4.wZsClfGYjx/qNCp1rZjn8ew3S", "$2b$12$Bq4ilJf1/9v3S32UpUfDLu", "Bill Andy", "Martinez obregon", "76528706", "deikyt2002@gmail.com", "AGA", "Informatica");
 commit;
