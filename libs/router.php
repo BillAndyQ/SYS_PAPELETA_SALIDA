@@ -21,7 +21,7 @@ $rutas = [];
         foreach ($rutas as $ruta) {
             if($ruta[2]==$nameRuta){
                 $url = "http://".$_SERVER['HTTP_HOST']. $ruta[0];
-                echo $url;
+                return $url;
             }
         }
     }

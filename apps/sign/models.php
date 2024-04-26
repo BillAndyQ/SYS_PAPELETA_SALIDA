@@ -43,26 +43,54 @@ class User{
         $randomBytes = random_bytes(40);
         $token = rtrim(strtr(base64_encode($randomBytes), '+/', '-_'), '=');
         
-        echo $email;
         $connect = new Connect();
         $connectdb = $connect->connectBD();
 
-        $consulta = $connectdb->prepare("UPDATE users SET token = :token WHERE email = bill@gmail.com ");
+        $consulta = $connectdb->prepare("UPDATE users SET token = :token WHERE email = :email ");
         
         $consulta->bindParam(':token', $token, PDO::PARAM_LOB);
-        // $consulta->bindParam(':email', $email);
+        $consulta->bindParam(':email', $email);
+        $consulta->execute();
 
         $numFilasAfectadas = $consulta->rowCount();
 
         if ($numFilasAfectadas > 0) {
-            echo "La actualización se realizó correctamente. Filas afectadas: " . $numFilasAfectadas;
+            return $token;
+
         } else {
-            echo "No se realizó ninguna actualización. No se encontraron filas para actualizar.";
+            popUpError("El correo no es válido!");
+            return null;
         }
+    }
+    public function verifToken($token){
 
-        $connectdb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    public function newPass($token){
+        $connect = new Connect();
+        $connectdb = $connect->connectBD();
 
-        return "Token seguro: " . $token;
+        $pass_salt = bin2hex(random_bytes(16));
+        $pass_hash = crypt($_POST['password'] , $pass_salt);
+
+        $sql = $connectdb->prepare("UPDATE users SET pass_salt = :pass_salt, pass_hash = :pass_hash WHERE token = :token");
+
+        $sql->bindParam(":pass_salt", $pass_salt);
+        $sql->bindParam(":pass_hash", $pass_hash);
+        $sql->bindParam(":token", $token);
+
+        $connectdb->beginTransaction();
+        $sql->execute();
+        $connectdb->commit();
+
+        $numFilasAfectadas = $sql->rowCount();
+
+        if ($numFilasAfectadas > 0) {
+            popUpCorrect("Nueva contraseña registrada!");
+            return $token;
+        } else {
+            popUpError("No se registro!");
+            return null;
+        }
     }
 
 }

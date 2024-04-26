@@ -28,36 +28,41 @@ class forgetPass extends Controller{
     }
     function post(){
         $mail = new PHPMailer(true);
+        require_once "./apps/sign/views/forget_pass.php";
 
         // generar Token
         $user = new User();
-        $user->generateToken($_POST['email']);
-        // try {
-        //     $mail->CharSet = 'UTF-8';
-        //     $mail->isSMTP();
-        //     $mail->Host = 'smtp.gmail.com';  // Cambia 'smtp.example.com' por tu servidor SMTP
-        //     $mail->SMTPAuth = true;
-        //     $mail->Username = 'billandyqm@gmail.com'; // Tu dirección de correo electrónico de Gmail
-        //     $mail->Password = 'opyu zyuy zgob vzbo'; // Tu contraseña de Gmail
-        //     $mail->SMTPSecure = 'tls';
-        //     $mail->Port = 587;
-            
-        //     $mail->setFrom('billandyqm@gmail.com', 'Bill Andy');
-        //     $mail->addAddress('deikyt2002@gmail.com', '');
+        $email = $_POST['email'];
+        $token = $user->generateToken($email);
 
-        //     $mail->Subject = 'RECUPERACION DE CONTRASEÑA UGEL';
-        //     $mail->isHTML(true);
+        if($token!=null){
+        try {
+            $mail->CharSet = 'UTF-8';
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';  // Cambia 'smtp.example.com' por tu servidor SMTP
+            $mail->SMTPAuth = true;
+            $mail->Username = 'billandyqm@gmail.com'; // Tu dirección de correo electrónico de Gmail
+            $mail->Password = 'opyu zyuy zgob vzbo'; // Tu contraseña de Gmail
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
             
-        //     $mail->Body = 'Recuperación de contraseña<br>Ruta';
+            $mail->setFrom('billandyqm@gmail.com', 'Bill Andy');
+            $mail->addAddress($email, '');
 
-        //     $mail->send();
+            $mail->Subject = 'RECUPERACION DE CONTRASEÑA UGEL';
+            $mail->isHTML(true);
+            $ruta = getRuta("new_pass"). "/?token=" . $token;
+            $msj = 'Recuperación de contraseña<br><a href="'. $ruta .'">Click para Crear nueva contraseña</a>';
+            $mail->Body = $msj;
+
+            $mail->send();
             
-        //     popUpCorrect("Correo de verificación enviado!");
+            popUpCorrect("Correo de verificación enviado!");
 
-        // } catch (Exception $e) {
-        //     popUpAlert("El correo no es válido");
-        // }
-        require_once "./apps/sign/views/forget_pass.php";
+        } catch (Exception $e) {
+            popUpAlert("El correo no es existe");
+        }
+        }
     }
 }
 
@@ -66,7 +71,6 @@ class newPass extends Controller{
     function get()
     {
         if(isset($_GET['token'])){
-            echo "Genera nueva contraseña";
             require_once "./apps/sign/views/new_pass.php";
         }else{
             redirect("login");
@@ -74,6 +78,12 @@ class newPass extends Controller{
     }
     function post()
     {
-        
+        if(isset($_GET['token'])){
+            $token = $_GET['token'];
+            $user = new User();
+            $user->newPass($token);
+        }else{
+            // redirect("login");
+        }
     }
 }

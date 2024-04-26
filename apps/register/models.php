@@ -52,9 +52,6 @@ class newUser{
                 popUpCorrect("Usuario creado exitosamente!");
                 redirect("login");
             }
-            
-
-
         } catch (PDOException $e) {
             $connectdb->rollBack();
             popUpError('Error al crear el nuevo usuario: ' . $e->getMessage());

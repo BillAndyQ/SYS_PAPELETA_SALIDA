@@ -7,8 +7,11 @@
 </head>
 <body>
     <h1>Nueva Contraseña</h1>
-    <input type="password" placeholder="Escribe tu nueva contraseña"><br>
-    <input type="password" placeholder="Repite"><br>
+    <form action="" method="POST">
+    <input type="password" name="password" placeholder="Escribe tu nueva contraseña"><br>
+    <input type="password" name="password_rpt" placeholder="Repite"><br>
     <input type="submit">
+    </form>
+
 </body>
 </html>
