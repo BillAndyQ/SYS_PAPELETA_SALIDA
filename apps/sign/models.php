@@ -83,13 +83,17 @@ class User{
         $connectdb->commit();
 
         $numFilasAfectadas = $sql->rowCount();
-
+        
         if ($numFilasAfectadas > 0) {
+            $sql = $connectdb->prepare("UPDATE users SET token = null WHERE token = :token");
+            $sql->bindParam(":token", $token);
+            $connectdb->beginTransaction();
+            $sql->execute();
+            $connectdb->commit();
+            
             popUpCorrect("Nueva contraseña registrada!");
-            return $token;
         } else {
             popUpError("No se registro!");
-            return null;
         }
     }
 
