@@ -44,7 +44,7 @@ class newUser{
                 $consulta->bindParam(':email', $email);
                 $consulta->bindParam(':area', $area);
                 $consulta->bindParam(':oficina', $oficina);
-
+                
                 // Ejecutar la consulta
                 $connectdb->beginTransaction();
                 $consulta->execute();

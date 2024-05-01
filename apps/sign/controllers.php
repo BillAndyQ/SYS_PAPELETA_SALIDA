@@ -7,7 +7,6 @@ require './libs/PHPMailer/src/Exception.php';
 require './libs/PHPMailer/src/PHPMailer.php';
 require './libs/PHPMailer/src/SMTP.php';
 
-
 class login extends Controller{
     function verifLogin(){}
     function get(){
